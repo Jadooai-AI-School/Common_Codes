@@ -46,7 +46,7 @@ IN_COLAB = 'google.colab' in sys.modules
 if IN_COLAB:
     #!pip install -qqq ctransformers torch
     os.system("pip install -qqq ctransformers torch")
-def get_ColabLLM(temperature=0.2, top_k = 40, top_p = 0.95, num_ctx = 1024):
+def get_LLM(temperature=0.2, top_k = 40, top_p = 0.95, num_ctx = 1024):
     if not IN_COLAB:
         raise Exception("Not running in Colab!")
     
@@ -86,9 +86,9 @@ def get_ColabLLM(temperature=0.2, top_k = 40, top_p = 0.95, num_ctx = 1024):
     return llm
 
 
-llm = get_ColabLLM()
-response = llm.invoke("Why is the sky blue?").content
-print(response)
+#llm = get_ColabLLM()
+#response = llm.invoke("Why is the sky blue?").content
+#print(response)
 
 ###########################################################################################################
 # Example usage
