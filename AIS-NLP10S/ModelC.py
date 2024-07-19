@@ -44,12 +44,6 @@ def get_LLM(temperature=0.2, top_k = 40, top_p = 0.95, num_ctx = 1024):
     print('Loaded Zephyr Model\n')
     return llm
     
-
-
-#llm = get_ColabLLM()
-#response = llm.invoke("Why is the sky blue?").content
-#print(response)
-
 ###########################################################################################################
 # Example usage
 if __name__ == "__main__":
@@ -57,40 +51,8 @@ if __name__ == "__main__":
     import os
     os.system("clear")
     
-    llm = get_chatLLM()
-    question_template = PromptTemplate(
-        input_variables=["question"],
-        template="{question}"
-        )
-    prompt = question_template.format(question="Why is the sky blue?")
-    response = llm.invoke(prompt).content
-    print("Invoke method response :", response) 
-    print('\n\n')
-    
-    
-    translation_template = PromptTemplate(
-        input_variables=["text", "input_language", "output_language"],
-        template="""
-        Translate the following text from {input_language} to {output_language}.
-        Text: {text}
-        """)
-    # Format the prompt
-    prompt = translation_template.format(input_language="English", output_language="French", text="I love my cat")
-    response = llm.invoke(prompt).content
-    print("Invoke method response :", response)
-    print('\n\n')
-##########################################################################################################################################
-    chat = get_chatLLM()
-    
-    conversation_template = ChatPromptTemplate.from_messages([
-        SystemMessagePromptTemplate.from_template("Translate the following text from {input_language} to {output_language}."),
-        HumanMessagePromptTemplate.from_template("{text}")
-    ])
-    
-    # Format the prompt
-    conversation_prompt = conversation_template.format_messages(input_language="English", output_language="French", text="I love my cat")
-    
-    invoke_response = chat.invoke(conversation_prompt).content
-    print("Invoke method response :", invoke_response)
-    
+    llm = get_ColabLLM()
+    response = llm.invoke("Why is the sky blue?").content
+    print(response)
+
     
