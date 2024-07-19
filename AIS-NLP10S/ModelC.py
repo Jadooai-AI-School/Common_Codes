@@ -1,51 +1,9 @@
-default_model = "gemma:2b"
-###########################################################################################################
-# This is a Langchain LLM wrapper for the Ollama model
-from langchain_community.llms import Ollama
-def get_LLM(model=default_model, temperature=0.2, top_k = 40, top_p = 0.95, num_ctx = 1024, base_url = "http://localhost:11434"):
-    llm = Ollama(
-        base_url = "http://localhost:11434",
-        model = model,
-        temperature=temperature,
-        top_k = top_k,
-        top_p = top_p,
-        num_ctx= num_ctx,
-    )
-    return llm
-
-###########################################################################################################
-#This is a Langchain ChatLLM wrapper for the Ollama model
-from langchain_community.chat_models.ollama import ChatOllama
-def get_chatLLM(model=default_model, base_url = "http://localhost:11434", temperature=0.2, top_k = 40, top_p = 0.95, num_ctx = 1024):
-    chat_llm = ChatOllama(
-        base_url=base_url,
-        model=model,
-        temperature=temperature,
-        top_k = top_k,
-        top_p = top_p,
-        num_ctx= num_ctx,
-    )
-    return chat_llm
-
-###########################################################################################################
-from langchain_openai import ChatOpenAI
-def get_chatOpenAI(model=default_model, base_url = "http://localhost:11434", temperature=0.2, kwargs = {}):
-    #model_kwargs = {"top_k": top_k, "top_p": top_p, "num_ctx": num_ctx}
-    chat_openai = ChatOpenAI(
-        base_url = 'http://localhost:11434/v1',
-        api_key= 'ollama', # required, but unused
-        model= model,
-        temperature=temperature,
-        model_kwargs=kwargs,
-    )
-    return chat_openai
-
 ###########################################################################################################
 import sys, os
 IN_COLAB = 'google.colab' in sys.modules
 if IN_COLAB:
-    #!pip install -qqq ctransformers torch
     os.system("pip install -qqq ctransformers torch")
+    
 def get_LLM(temperature=0.2, top_k = 40, top_p = 0.95, num_ctx = 1024):
     if not IN_COLAB:
         raise Exception("Not running in Colab!")
@@ -83,7 +41,9 @@ def get_LLM(temperature=0.2, top_k = 40, top_p = 0.95, num_ctx = 1024):
         temperature=temperature,
         context_length=num_ctx,
         )
+    print('Loaded Zephyr Model\n')
     return llm
+    
 
 
 #llm = get_ColabLLM()
